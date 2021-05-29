@@ -67,7 +67,7 @@ async def on_message(message):
     tts = gTTS(user.nick + ' dice, ' + cleanemojis(message.clean_content), lang='es', tld='es')
     tts.save("msg.mp3")
 
-    vc.play(discord.FFmpegPCMAudio(source='msg.mp3', executable='C:\\ffmpeg\\ffmpeg.exe', options="-loglevel panic"))
+    vc.play(discord.FFmpegPCMAudio(source='msg.mp3', executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"))
 
 
 @bot.command(name="ven")
