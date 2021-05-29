@@ -74,7 +74,7 @@ async def on_message(message):
 async def ven(ctx):
     connected = ctx.author.voice
     if not connected:
-        await ctx.send("You need to be connected in a voice channel to use this command!")
+        await ctx.send("Pero tu que eres, tonto? Métete en un canal de voz antes de decirme nah")
         return
     await connected.channel.connect()
 
