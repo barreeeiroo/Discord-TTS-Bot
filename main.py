@@ -114,5 +114,10 @@ async def vete(ctx):
     await vc.disconnect()
 
 
+@bot.command(name="clips")
+async def clips(ctx):
+    await ctx.send("\n".join(CLIPS))
+
+
 if __name__ == "__main__":
     bot.run(os.environ['DISCORD_TOKEN'])
