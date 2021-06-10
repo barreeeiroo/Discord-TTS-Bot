@@ -61,6 +61,10 @@ async def on_message(message):
         # Only accept messages in tts channel
         return
 
+    if message.clean_content.startswith("http"):
+        # Ignorar enlaces
+        return
+
     while vc.is_playing():
         await asyncio.sleep(0.1)
 
