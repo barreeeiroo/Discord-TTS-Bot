@@ -10,6 +10,20 @@ from gtts import gTTS
 PREFIX = '$'
 bot = commands.Bot(command_prefix=PREFIX)
 
+CLIPS = [
+    "top enemigo",
+    "faker what was that",
+    "son robots",
+    "im a problem",
+    "todos los dias igual",
+    "autoataques",
+    "matale",
+    "cliente de mierda",
+    "my team is so bad",
+    "que haces putita",
+    "rock solid"
+]
+
 
 def cleanemojis(string):
     return re.sub(r"<a?:([a-zA-Z0-9_-]{1,32}):[0-9]{17,21}>", r":\1:", string)
@@ -68,10 +82,18 @@ async def on_message(message):
     while vc.is_playing():
         await asyncio.sleep(0.1)
 
-    tts = gTTS(user.nick + ' dice, ' + cleanemojis(message.clean_content), lang='es', tld='es')
-    tts.save("msg.mp3")
+    custom = None
+    for clip in CLIPS:
+        if clip in message.clean_content:
+            custom = "clips/" + clip.replace(" ", "") + ".mp3"
+            break
 
-    vc.play(discord.FFmpegPCMAudio(source='msg.mp3', executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"))
+    if custom is None:
+        tts = gTTS(user.nick + ' dice, ' + cleanemojis(message.clean_content), lang='es', tld='es')
+        tts.save("msg.mp3")
+        custom = "msg.mp3"
+
+    vc.play(discord.FFmpegPCMAudio(source=custom, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"))
 
 
 @bot.command(name="ven")
