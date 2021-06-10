@@ -6,9 +6,17 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 from gtts import gTTS
+from pysndfx import AudioEffectsChain
 
 PREFIX = '$'
 bot = commands.Bot(command_prefix=PREFIX)
+
+fx = (
+    AudioEffectsChain()
+    .reverb(reverberance=50, hf_damping=50, room_scale=100, stereo_depth=100, pre_delay=20, wet_gain=0, wet_only=False)
+    .phaser(gain_in=0.9, gain_out=0.8, delay=1, decay=0.25, speed=2, triangular=False)
+    .delay(gain_in=0.8, gain_out=0.5, delays=list((10, 20)), decays=list((0.7, 0.5)), parallel=False)
+)
 
 
 def cleanemojis(string):
@@ -65,7 +73,8 @@ async def on_message(message):
         await asyncio.sleep(0.1)
 
     tts = gTTS(user.nick + ' dice, ' + cleanemojis(message.clean_content), lang='es', tld='es')
-    tts.save("msg.mp3")
+    tts.save("tmp.mp3")
+    fx('tmp.mp3', 'msg.mp3')
 
     vc.play(discord.FFmpegPCMAudio(source='msg.mp3', executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"))
 
