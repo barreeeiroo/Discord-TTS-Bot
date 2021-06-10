@@ -129,3 +129,4 @@ dmypy.json
 
 # Outputs
 *.mp3
+!clips/*.mp3
