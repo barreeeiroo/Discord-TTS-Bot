@@ -21,7 +21,10 @@ CLIPS = [
     "cliente de mierda",
     "my team is so bad",
     "que haces putita",
-    "rock solid"
+    "rock solid",
+    "tengo furbo",
+    "chao concha",
+    "puse el turbo"
 ]
 
 
