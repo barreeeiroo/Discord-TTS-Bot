@@ -24,7 +24,8 @@ CLIPS = [
     "rock solid",
     "tengo furbo",
     "chao concha",
-    "puse el turbo"
+    "puse el turbo",
+    "con los terrorista"
 ]
 
 
@@ -92,7 +93,7 @@ async def on_message(message):
             break
 
     if custom is None:
-        tts = gTTS(user.nick + ' dice, ' + cleanemojis(message.clean_content), lang='es', tld='es')
+        tts = gTTS((user.nick if user.nick is not None else user.name) + ' dice, ' + cleanemojis(message.clean_content), lang='es', tld='es')
         tts.save("msg.mp3")
         custom = "msg.mp3"
 
