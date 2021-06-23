@@ -25,7 +25,9 @@ CLIPS = [
     "tengo furbo",
     "chao concha",
     "puse el turbo",
-    "con los terrorista"
+    "con los terrorista",
+    "no mana",
+    "demacia"
 ]
 
 
