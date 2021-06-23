@@ -27,7 +27,8 @@ CLIPS = [
     "puse el turbo",
     "con los terrorista",
     "no mana",
-    "demacia"
+    "demacia",
+    "golaso"
 ]
 
 
