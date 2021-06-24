@@ -28,7 +28,9 @@ CLIPS = [
     "con los terrorista",
     "no mana",
     "demacia",
-    "golaso"
+    "golaso",
+    "we got him",
+    "vamo a juga"
 ]
 
 
