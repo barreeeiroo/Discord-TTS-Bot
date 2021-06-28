@@ -30,7 +30,8 @@ CLIPS = [
     "demacia",
     "golaso",
     "we got him",
-    "vamo a juga"
+    "vamo a juga",
+    "nasus is stacking"
 ]
 
 
