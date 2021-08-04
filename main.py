@@ -32,7 +32,8 @@ CLIPS = [
     "we got him",
     "vamo a juga",
     "nasus is stacking",
-    "poco me parece"
+    "poco me parece",
+    "atras"
 ]
 
 
