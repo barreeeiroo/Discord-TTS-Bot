@@ -33,7 +33,8 @@ CLIPS = [
     "vamo a juga",
     "nasus is stacking",
     "poco me parece",
-    "atras"
+    "atras",
+    "we smell pennies"
 ]
 
 
