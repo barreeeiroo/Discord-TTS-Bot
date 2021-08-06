@@ -43,7 +43,8 @@ CLIPS = [
     "mucho espanoles",
     "piensan antes",
     "vaso",
-    "cuanto peor mejor"
+    "cuanto peor mejor",
+    "hee hee"
 ]
 
 
