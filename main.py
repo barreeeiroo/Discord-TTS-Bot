@@ -44,7 +44,8 @@ CLIPS = [
     "piensan antes",
     "vaso",
     "cuanto peor mejor",
-    "hee hee"
+    "hee hee",
+    "snap back to reality"
 ]
 
 
