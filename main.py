@@ -34,7 +34,16 @@ CLIPS = [
     "nasus is stacking",
     "pmp",
     "atras",
-    "we smell pennies"
+    "we smell pennies",
+    "hacen cosas",
+    "somos sentimientos",
+    "hacemos lo que podemos",
+    "es el vecino",
+    "venga adelante",
+    "mucho espanoles",
+    "piensan antes",
+    "vaso",
+    "cuanto peor mejor"
 ]
 
 
