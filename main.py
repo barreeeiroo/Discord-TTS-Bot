@@ -97,7 +97,7 @@ async def on_message(message):
 
     custom = None
     for clip in CLIPS:
-        if clip in message.clean_content:
+        if message.clean_content.lower() == clip:
             custom = "clips/" + clip.replace(" ", "") + ".mp3"
             break
 
