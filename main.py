@@ -114,7 +114,22 @@ async def on_message(message):
             break
 
     if custom is None:
-        tts = gTTS((user.nick if user.nick is not None else user.name) + ' dice, ' + cleanemojis(message.clean_content), lang='es', tld='es')
+        c, c_muted = 0, 0
+        muted = False
+        still_in = False
+        for m in voice_channel.members:
+            if m.bot:
+                continue
+            if m.id == user.id:
+                still_in = True
+            c += 1
+            c += 1 if m.voice.mute else 0
+            if user.id == m.id:
+                muted = m.voice.mute
+
+        prefix = "" if still_in and (c < 3 or (muted and c_muted == 1)) \
+            else ((user.nick if user.nick is not None else user.name) + ' dice, ')
+        tts = gTTS(prefix + cleanemojis(message.clean_content), lang='es', tld='es')
         tts.save("msg.mp3")
         custom = "msg.mp3"
 
