@@ -46,7 +46,8 @@ CLIPS = [
     "cuanto peor mejor",
     "hee hee",
     "snap back to reality",
-    "i lost my words"
+    "i lost my words",
+    "porfaa"
 ]
 
 
@@ -122,10 +123,9 @@ async def on_message(message):
                 continue
             if m.id == user.id:
                 still_in = True
-            c += 1
-            c += 1 if m.voice.mute else 0
-            if user.id == m.id:
                 muted = m.voice.mute
+            c += 1
+            c_muted += 1 if m.voice.mute else 0
 
         prefix = "" if still_in and (c < 3 or (muted and c_muted == 1)) \
             else ((user.nick if user.nick is not None else user.name) + ' dice, ')
