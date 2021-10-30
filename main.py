@@ -123,12 +123,15 @@ async def on_message(message):
                 continue
             if m.id == user.id:
                 still_in = True
-                muted = m.voice.mute
+                muted = m.voice.self_mute or m.voice.mute
             c += 1
-            c_muted += 1 if m.voice.mute else 0
+            c_muted += 1 if (m.voice.self_mute or m.voice.mute) else 0
 
-        prefix = "" if still_in and (c < 3 or (muted and c_muted == 1)) \
-            else ((user.nick if user.nick is not None else user.name) + ' dice, ')
+        if still_in and (c < 3 or (muted and c_muted == 1)):
+            prefix = ""
+        else:
+            prefix = (user.nick if user.nick is not None else user.name) + ' dice, '
+
         tts = gTTS(prefix + cleanemojis(message.clean_content), lang='es', tld='es')
         tts.save("msg.mp3")
         custom = "msg.mp3"
