@@ -47,7 +47,8 @@ CLIPS = [
     "hee hee",
     "snap back to reality",
     "i lost my words",
-    "porfaa"
+    "porfaa",
+    "jajano"
 ]
 
 
