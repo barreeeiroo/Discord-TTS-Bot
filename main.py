@@ -48,7 +48,8 @@ CLIPS = [
     "snap back to reality",
     "i lost my words",
     "porfaa",
-    "jajano"
+    "jajano",
+    "onii chan"
 ]
 
 
