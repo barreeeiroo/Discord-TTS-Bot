@@ -5,7 +5,7 @@ import re
 import discord
 from discord.ext import commands
 from discord.utils import get
-from gtts import gTTS
+import gtts
 
 PREFIX = '$'
 bot = commands.Bot(command_prefix=PREFIX)
@@ -143,7 +143,7 @@ async def on_message(message):
         else:
             prefix = (user.nick if user.nick is not None else user.name) + ' dice, '
 
-        tts = gTTS(prefix + cleanemojis(text), lang=lang, tld=tld)
+        tts = gtts.gTTS(prefix + cleanemojis(text), lang=lang, tld=tld)
         tts.save("msg.mp3")
         custom = "msg.mp3"
 
@@ -171,6 +171,15 @@ async def vete(ctx):
 @bot.command(name="clips")
 async def clips(ctx):
     await ctx.send("\n".join(CLIPS))
+
+
+@bot.command(name="langs")
+async def langs(ctx):
+    langs = gtts.lang.tts_langs()
+    texto = ""
+    for lang in langs.keys():
+        texto += langs[lang] + ": " + lang + "\n"
+    await ctx.send(texto)
 
 
 if __name__ == "__main__":
