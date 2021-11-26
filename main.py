@@ -49,7 +49,8 @@ CLIPS = [
     "i lost my words",
     "porfaa",
     "jajano",
-    "onii chan"
+    "onii chan",
+    "ayaya"
 ]
 
 
