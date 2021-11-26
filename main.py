@@ -129,19 +129,21 @@ async def on_message(message):
             c += 1
             c_muted += 1 if (m.voice.self_mute or m.voice.mute) else 0
         
-        p = re.compile("^([a-zA-Z-]{2,7}_[a-zA-Z.]{2,7}#).+$")
+        p = re.compile("^([a-zA-Z-]{2,7}_[a-zA-Z.]{2,7}#)(.+)$")
         m = p.match(message.clean_content)
         if m is not None:
             lang, tld = m.group(1).replace("#", "").split("_")
+            text = m.group(2)
         else:
             lang, tld = "es", "es"
+            text = message.clean_content
 
         if still_in and (c < 3 or (muted and c_muted == 1)):
             prefix = ""
         else:
             prefix = (user.nick if user.nick is not None else user.name) + ' dice, '
 
-        tts = gTTS(prefix + cleanemojis(message.clean_content), lang=lang, tld=tld)
+        tts = gTTS(prefix + cleanemojis(text), lang=lang, tld=tld)
         tts.save("msg.mp3")
         custom = "msg.mp3"
 
