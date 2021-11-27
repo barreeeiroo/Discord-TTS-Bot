@@ -50,7 +50,8 @@ CLIPS = [
     "porfaa",
     "jajano",
     "onii chan",
-    "ayaya"
+    "ayaya",
+    "yuupi"
 ]
 
 
