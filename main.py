@@ -3,57 +3,15 @@ import os
 import re
 
 import discord
+import gtts
 from discord.ext import commands
 from discord.utils import get
-import gtts
+
+from clips import CLIPS
+from db import DB
 
 PREFIX = '$'
 bot = commands.Bot(command_prefix=PREFIX)
-
-CLIPS = [
-    "top enemigo",
-    "faker what was that",
-    "son robots",
-    "im a problem",
-    "todos los dias igual",
-    "autoataques",
-    "matale",
-    "cliente de mierda",
-    "my team is so bad",
-    "que haces putita",
-    "rock solid",
-    "tengo furbo",
-    "chao concha",
-    "puse el turbo",
-    "con los terrorista",
-    "no mana",
-    "demacia",
-    "golaso",
-    "we got him",
-    "vamo a juga",
-    "nasus is stacking",
-    "pmp",
-    "atras",
-    "we smell pennies",
-    "hacen cosas",
-    "somos sentimientos",
-    "hacemos lo que podemos",
-    "es el vecino",
-    "venga adelante",
-    "mucho espanoles",
-    "piensan antes",
-    "vaso",
-    "cuanto peor mejor",
-    "hee hee",
-    "snap back to reality",
-    "i lost my words",
-    "porfaa",
-    "jajano",
-    "onii chan",
-    "ayaya",
-    "yuupi",
-    "vaya ppc"
-]
 
 
 def cleanemojis(string):
@@ -67,7 +25,8 @@ def get_voiceclient(message):
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='Barreiro smurfing con Leona'))
+    await bot.change_presence(
+        activity=discord.Activity(type=discord.ActivityType.watching, name='Barreiro smurfing con Leona'))
     print('Connected to bot: {}'.format(bot.user.name))
     print('Bot ID: {}'.format(bot.user.id))
 
@@ -116,6 +75,7 @@ async def on_message(message):
     custom = None
     for clip in CLIPS:
         if message.clean_content.lower() == clip:
+            DB.save_estadistica(clip)
             custom = "clips/" + clip.replace(" ", "") + ".mp3"
             break
 
@@ -131,15 +91,9 @@ async def on_message(message):
                 muted = m.voice.self_mute or m.voice.mute
             c += 1
             c_muted += 1 if (m.voice.self_mute or m.voice.mute) else 0
-        
-        p = re.compile("^([a-zA-Z-]{2,7}_[a-zA-Z.]{2,7}#)(.+)$")
-        m = p.match(message.clean_content)
-        if m is not None:
-            lang, tld = m.group(1).replace("#", "").split("_")
-            text = m.group(2)
-        else:
-            lang, tld = "es", "es"
-            text = message.clean_content
+
+        lang, tld = DB.get_idioma(message.author.id)
+        text = message.clean_content
 
         if still_in and (c < 3 or (muted and c_muted == 1)):
             prefix = ""
@@ -147,10 +101,13 @@ async def on_message(message):
             prefix = (user.nick if user.nick is not None else user.name) + ' dice, '
 
         tts = gtts.gTTS(prefix + cleanemojis(text), lang=lang, tld=tld)
-        tts.save("msg.mp3")
-        custom = "msg.mp3"
+        custom = "%d.mp3" % message.guild.id
+        tts.save(custom)
 
-    vc.play(discord.FFmpegPCMAudio(source=custom, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"))
+    vc.play(
+        discord.FFmpegPCMAudio(source=custom, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
+        after=lambda _: os.remove(custom) if not custom.startswith("clips/") else None
+    )
 
 
 @bot.command(name="ven")
@@ -173,17 +130,48 @@ async def vete(ctx):
 
 @bot.command(name="clips")
 async def clips(ctx):
-    await ctx.send("\n".join(CLIPS))
+    embed = discord.Embed(title="Lista de Clips", description="\n".join(CLIPS))
+    await ctx.send(embed=embed)
 
 
-@bot.command(name="langs")
-async def langs(ctx):
+@bot.command(name="lang")
+async def lang(ctx, idioma=None, tld=None):
     langs = gtts.lang.tts_langs()
-    texto = ""
-    for lang in langs.keys():
-        texto += langs[lang] + ": " + lang + "\n"
-    await ctx.send(texto)
+    if idioma is None:
+        lang, tld = DB.get_idioma(ctx.author.id)
+        embed = discord.Embed(title="Tus Ajustes")
+        embed.add_field(name="Idioma", value=("%s (`%s`)" % (langs[lang], lang)), inline=True)
+        embed.add_field(name="Dominio", value=tld, inline=True)
+        await ctx.send(embed=embed)
+        return
+
+    if idioma not in langs:
+        embed = discord.Embed(title="Idiomas Soportados")
+        for l in langs.keys():
+            embed.add_field(name=langs[l], value=l, inline=True)
+        await ctx.send("Error localizando el idioma", embed=embed)
+        return
+
+    if tld is None:
+        tld = "com"
+    else:
+        with open("./tlds.txt", "r") as f:
+            tlds = f.read()
+        tlds = tlds.split("\n")
+        if tld not in tlds:
+            embed = discord.Embed(title="Extensiones TLD Soportadas")
+            embed.add_field(name="Google TLDs", value="\n".join(tlds), inline=True)
+            await ctx.send("Error localizando el TLD", embed=embed)
+            return
+
+    DB.save_idioma(ctx.author.id, idioma, tld)
+    embed = discord.Embed(title="Tus Ajustes")
+    embed.add_field(name="Idioma", value=("%s (`%s`)" % (langs[idioma], idioma)), inline=True)
+    embed.add_field(name="Dominio", value=tld, inline=True)
+    await ctx.send("Se ha guardado el idioma por defecto", embed=embed)
+    return
 
 
 if __name__ == "__main__":
+    DB.iniciar()
     bot.run(os.environ['DISCORD_TOKEN'])
