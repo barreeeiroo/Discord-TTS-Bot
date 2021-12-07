@@ -40,5 +40,7 @@ CLIPS = [
     "onii chan",
     "ayaya",
     "yuupi",
-    "vaya ppc"
+    "vaya ppc",
+    "a que si",
+    "rayita"
 ]
