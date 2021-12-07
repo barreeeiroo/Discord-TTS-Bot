@@ -41,6 +41,7 @@ CLIPS = [
     "ayaya",
     "yuupi",
     "vaya ppc",
-    "a que si",
-    "rayita"
+    "no que va",
+    "rayita",
+    "que ha hecho"
 ]
