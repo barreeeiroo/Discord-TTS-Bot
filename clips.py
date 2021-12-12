@@ -43,5 +43,6 @@ CLIPS = [
     "vaya ppc",
     "no que va",
     "rayita",
-    "que ha hecho"
+    "que ha hecho",
+    "zz"
 ]
