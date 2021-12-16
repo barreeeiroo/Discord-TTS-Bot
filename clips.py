@@ -44,5 +44,6 @@ CLIPS = [
     "no que va",
     "rayita",
     "que ha hecho",
-    "zz"
+    "zz",
+    "el gobierno"
 ]
