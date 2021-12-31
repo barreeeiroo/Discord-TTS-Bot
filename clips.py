@@ -45,5 +45,7 @@ CLIPS = [
     "rayita",
     "que ha hecho",
     "zz",
-    "el gobierno"
+    "el gobierno",
+    "jijija",
+    "en mp3"
 ]
