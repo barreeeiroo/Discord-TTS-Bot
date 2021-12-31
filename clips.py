@@ -47,5 +47,6 @@ CLIPS = [
     "zz",
     "el gobierno",
     "jijija",
-    "en mp3"
+    "en mp3",
+    "fbi open up"
 ]
