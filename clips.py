@@ -49,5 +49,6 @@ CLIPS = [
     "jijija",
     "en mp3",
     "fbi open up",
-    "risitas"
+    "risitas",
+    "piruriru"
 ]
