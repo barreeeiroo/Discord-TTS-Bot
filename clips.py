@@ -50,5 +50,6 @@ CLIPS = [
     "en mp3",
     "fbi open up",
     "risitas",
-    "piruriru"
+    "piruriru",
+    "es un tio"
 ]
