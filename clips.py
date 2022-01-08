@@ -52,5 +52,6 @@ CLIPS = [
     "risitas",
     "piruriru",
     "es un tio",
-    "headshot"
+    "headshot",
+    "bonk"
 ]
