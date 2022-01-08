@@ -51,5 +51,6 @@ CLIPS = [
     "fbi open up",
     "risitas",
     "piruriru",
-    "es un tio"
+    "es un tio",
+    "headshot"
 ]
