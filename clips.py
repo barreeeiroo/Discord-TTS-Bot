@@ -53,5 +53,9 @@ CLIPS = [
     "piruriru",
     "es un tio",
     "headshot",
-    "bonk"
+    "bonk",
+    "thud",
+    "sad violin",
+    "wow",
+    "phub"
 ]
