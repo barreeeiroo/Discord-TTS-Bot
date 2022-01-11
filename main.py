@@ -8,7 +8,7 @@ from discord.ext import commands
 from discord.utils import get
 
 from clips import CLIPS
-from db import DB
+from db import DB, Admin
 
 PREFIX = '$'
 bot = commands.Bot(command_prefix=PREFIX)
@@ -76,6 +76,8 @@ async def on_message(message):
     for clip in CLIPS:
         if message.clean_content.lower() == clip:
             DB.save_estadistica(clip)
+            if Admin.is_clip_banned_for_user(clip, message.guild.id, message.author.id):
+                return
             custom = "clips/" + clip.replace(" ", "") + ".mp3"
             break
 
@@ -172,6 +174,71 @@ async def lang(ctx, idioma=None, tld=None):
     return
 
 
+@bot.command(name="bans")
+async def bans(ctx):
+    user = ctx.author.id
+    if not Admin.is_user_admin(user):
+        await ctx.send("No eres admin perro")
+        return
+
+    b = Admin.get_banned(ctx.guild.id)
+    embed = discord.Embed(title="Clips Baneados")
+    if "_" in b:
+        t = ""
+        for ban in b["_"]:
+            t += ban + "\n"
+        embed.add_field(name='Globales', value=t, inline=False)
+
+    for user in b.keys():
+        if user == "_":
+            continue
+        user = await bot.fetch_user(int(user))
+        t = ""
+        for ban in b[str(user.id)]:
+            t += ban + "\n"
+        embed.add_field(name=user.name + "#" + user.discriminator + " (" + str(user.id) + ")", value=t, inline=False)
+    await ctx.send("Lista de clips baneados", embed=embed)
+
+
+@bot.command(name="ban")
+async def ban(ctx, user=None, clip=None):
+    u = ctx.author.id
+    if not Admin.is_user_admin(u):
+        await ctx.send("No eres admin perro")
+        return
+
+    if user is None or clip is None:
+        await ctx.send("Usar: $ban [usuario] [clip]")
+        return
+
+    if Admin.is_clip_banned_for_user(clip, ctx.guild.id, u):
+        await ctx.send("Este clip ya está baneado")
+        return
+
+    Admin.ban_clip(clip, ctx.guild.id, user)
+    await ctx.send("Clip baneado")
+
+
+@bot.command(name="unban")
+async def unban(ctx, user=None, clip=None):
+    u = ctx.author.id
+    if not Admin.is_user_admin(u):
+        await ctx.send("No eres admin perro")
+        return
+
+    if user is None or clip is None:
+        await ctx.send("Usar: $unban [usuario] [clip]")
+        return
+
+    if not Admin.is_clip_banned_for_user(clip, ctx.guild.id, u):
+        await ctx.send("Este clip no está baneado")
+        return
+
+    Admin.unban_clip(clip, ctx.guild.id, user)
+    await ctx.send("Clip desbaneado")
+
+
 if __name__ == "__main__":
     DB.iniciar()
+    Admin.iniciar()
     bot.run(os.environ['DISCORD_TOKEN'])

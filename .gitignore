@@ -131,4 +131,5 @@ dmypy.json
 *.mp3
 !clips/*.mp3
 # Database
+admin.json
 db.json
