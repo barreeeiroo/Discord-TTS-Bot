@@ -192,16 +192,25 @@ async def bans(ctx):
     for user in b.keys():
         if user == "_":
             continue
-        user = await bot.fetch_user(int(user))
+        try:
+            i = user
+            user = await bot.fetch_user(int(user))
+            u = user.name + "#" + user.discriminator + " (" + str(user.id) + ")"
+        except discord.errors.NotFound:
+            i = user
+            u = user
         t = ""
-        for ban in b[str(user.id)]:
+        for ban in b[i]:
             t += ban + "\n"
-        embed.add_field(name=user.name + "#" + user.discriminator + " (" + str(user.id) + ")", value=t, inline=False)
+        embed.add_field(name=u, value=t, inline=False)
     await ctx.send("Lista de clips baneados", embed=embed)
 
 
 @bot.command(name="ban")
-async def ban(ctx, user=None, clip=None):
+async def ban(ctx, user=None, *args):
+    clip = " ".join(args)
+    if clip == "":
+        clip = None
     u = ctx.author.id
     if not Admin.is_user_admin(u):
         await ctx.send("No eres admin perro")
@@ -215,12 +224,21 @@ async def ban(ctx, user=None, clip=None):
         await ctx.send("Este clip ya está baneado")
         return
 
+    try:
+        int(user)
+    except ValueError:
+        await ctx.send("El usuario tiene que ser un ID numérico")
+        return
+
     Admin.ban_clip(clip, ctx.guild.id, user)
     await ctx.send("Clip baneado")
 
 
 @bot.command(name="unban")
-async def unban(ctx, user=None, clip=None):
+async def unban(ctx, user=None, *args):
+    clip = " ".join(args)
+    if clip == "":
+        clip = None
     u = ctx.author.id
     if not Admin.is_user_admin(u):
         await ctx.send("No eres admin perro")
