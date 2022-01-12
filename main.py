@@ -211,7 +211,7 @@ async def ban(ctx, user=None, clip=None):
         await ctx.send("Usar: $ban [usuario] [clip]")
         return
 
-    if Admin.is_clip_banned_for_user(clip, ctx.guild.id, u):
+    if Admin.is_clip_banned_for_user(clip, ctx.guild.id, user):
         await ctx.send("Este clip ya está baneado")
         return
 
@@ -230,7 +230,7 @@ async def unban(ctx, user=None, clip=None):
         await ctx.send("Usar: $unban [usuario] [clip]")
         return
 
-    if not Admin.is_clip_banned_for_user(clip, ctx.guild.id, u):
+    if not Admin.is_clip_banned_for_user(clip, ctx.guild.id, user):
         await ctx.send("Este clip no está baneado")
         return
 
