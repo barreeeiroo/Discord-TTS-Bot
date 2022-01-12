@@ -125,9 +125,11 @@ class Admin:
         g = bans[guild]
         if user not in g:
             return
-        g.remove(clip)
-        if len(g) == 0:
-            bans.remove(guild)
+        g[user].remove(clip)
+        if len(g[user]) == 0:
+            del g[user]
+        if g == {}:
+            del bans[guild]
         Admin.__save(data)
 
     @staticmethod
