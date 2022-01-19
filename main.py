@@ -225,7 +225,8 @@ async def ban(ctx, user=None, *args):
         return
 
     try:
-        int(user)
+        if user != "_":
+            int(user)
     except ValueError:
         await ctx.send("El usuario tiene que ser un ID numérico")
         return
