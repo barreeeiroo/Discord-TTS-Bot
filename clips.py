@@ -57,5 +57,6 @@ CLIPS = [
     "thud",
     "sad violin",
     "wow",
-    "phub"
+    "phub",
+    "de verda"
 ]
