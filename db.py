@@ -98,6 +98,8 @@ class Admin:
             return True
         if user in g and clip in g[user]:
             return True
+        elif user in g and "_" in g[user]:
+            return True
         return False
 
     @staticmethod
