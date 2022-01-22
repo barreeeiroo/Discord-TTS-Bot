@@ -59,5 +59,14 @@ CLIPS = [
     "wow",
     "phub",
     "de verda",
-    "no tio"
+    "no tio",
+    "die little animal",
+    "es blissard",
+    "esto es el wow",
+    "gg wp",
+    "no comprender",
+    "pero mira",
+    "porque blissard",
+    "skyfall",
+    "vaya ostia",
 ]
