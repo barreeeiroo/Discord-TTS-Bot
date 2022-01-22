@@ -72,4 +72,6 @@ CLIPS = [
     "esta gorda",
     "esta grabando",
     "segundo hit",
+    "me cago",
+    "paguita extra",
 ]
