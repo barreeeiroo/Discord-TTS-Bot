@@ -69,4 +69,7 @@ CLIPS = [
     "porque blissard",
     "skyfall",
     "vaya ostia",
+    "esta gorda",
+    "esta grabando",
+    "segundo hit",
 ]
