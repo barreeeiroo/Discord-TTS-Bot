@@ -41,6 +41,10 @@ async def on_message(message):
         # Ignore private messages
         return
 
+    if Admin.is_user_banned(message.guild.id, message.author.id):
+        # Ignore banned users
+        return
+
     if message.content.startswith(PREFIX):
         # If command, process it as it should be
         await bot.process_commands(message)
@@ -225,7 +229,7 @@ async def ban(ctx, user=None, *args):
         return
 
     try:
-        if user != "_":
+        if user != "_" and user != "*":
             int(user)
     except ValueError:
         await ctx.send("El usuario tiene que ser un ID numérico")

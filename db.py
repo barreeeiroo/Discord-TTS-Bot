@@ -103,6 +103,19 @@ class Admin:
         return False
 
     @staticmethod
+    def is_user_banned(guild, user):
+        guild = str(guild)
+        user = str(user)
+        data = Admin.__get()
+        bans = data[Admin.__BANS]
+        if guild not in bans:
+            return False
+        g = bans[guild]
+        if user in g and "*" in g[user]:
+            return True
+        return False
+
+    @staticmethod
     def ban_clip(clip, guild, user):
         guild = str(guild)
         user = str(user)
