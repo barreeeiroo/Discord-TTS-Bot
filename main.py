@@ -77,12 +77,15 @@ async def on_message(message):
         await asyncio.sleep(0.1)
 
     custom = None
-    for clip in CLIPS:
-        if message.clean_content.lower() == clip:
-            DB.save_estadistica(clip)
-            if Admin.is_clip_banned_for_user(clip, message.guild.id, message.author.id):
-                return
-            custom = "clips/" + clip.replace(" ", "") + ".mp3"
+    for c in CLIPS.values():
+        for clip in c:
+            if message.clean_content.lower() == clip:
+                DB.save_estadistica(clip)
+                if Admin.is_clip_banned_for_user(clip, message.guild.id, message.author.id):
+                    return
+                custom = "clips/" + clip.replace(" ", "") + ".mp3"
+                break
+        if custom is not None:
             break
 
     if custom is None:
@@ -136,7 +139,9 @@ async def vete(ctx):
 
 @bot.command(name="clips")
 async def clips(ctx):
-    embed = discord.Embed(title="Lista de Clips", description="\n".join(CLIPS))
+    embed = discord.Embed(title="Lista de Clips")
+    for categoria, c in CLIPS.items():
+        embed.add_field(name=categoria, value="\n".join(c), inline=True)
     await ctx.send(embed=embed)
 
 
@@ -229,10 +234,14 @@ async def ban(ctx, user=None, *args):
         return
 
     try:
-        if user != "_" and user != "*":
+        if user != "_":
             int(user)
     except ValueError:
         await ctx.send("El usuario tiene que ser un ID numérico")
+        return
+
+    if user == "_" and clip == "*":
+        await ctx.send("No puedes banear globalmente todo (incluidos comandos)")
         return
 
     Admin.ban_clip(clip, ctx.guild.id, user)
