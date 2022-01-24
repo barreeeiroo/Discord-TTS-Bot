@@ -29,6 +29,9 @@ CLIPS = {
     "Braischan": [
         "paguita extra",
     ],
+    "Fytruzas": [
+        "comeme",
+    ],
     "Elpior": [
         "cliente de mierda",
         "top enemigo",
