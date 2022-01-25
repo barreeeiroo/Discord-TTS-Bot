@@ -1,15 +1,21 @@
 CLIPS = {
     "Diego Rager": [
+        "ai no se",
         "die little animal",
         "el gobierno",
         "es blissard",
         "gg wp",
+        "granadeo",
+        "nivel de gusano",
         "no comprender",
         "porque blissard",
         "pero mira",
         "rayita",
+        "ready pa la guerra",
         "que ha hecho",
         "vaya ostia",
+        "toma tonto",
+        "un ivan",
     ],
     "Marto": [
         "esta gorda",
@@ -22,8 +28,11 @@ CLIPS = {
         "zz",
     ],
     "Iván Predictor": [
+        "a",
+        "avisado estas",
         "esto es el wow",
         "me cago",
+        "no lo hagas",
         "no que va",
     ],
     "Braischan": [
