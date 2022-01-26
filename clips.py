@@ -46,6 +46,7 @@ CLIPS = {
         "top enemigo",
         "my team is so bad",
         "porfaa",
+        "riot",
     ],
     "Nissaxter": [
         "autoataques",
