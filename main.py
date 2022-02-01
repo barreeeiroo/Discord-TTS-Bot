@@ -269,6 +269,43 @@ async def unban(ctx, user=None, *args):
     Admin.unban_clip(clip, ctx.guild.id, user)
     await ctx.send("Clip desbaneado")
 
+@bot.event
+async def on_voice_state_update(member, before, after):
+    vc = get(bot.voice_clients, guild=member.guild)
+    if not vc or not vc.is_connected():
+        # If no voice channel, ignore
+        return
+
+    texto = ""
+    if not before and after:
+        if vc.channel != after.channel:
+            return
+        texto = 'Hola ' + (member.nick if member.nick is not None else member.name)
+    elif before and not after:
+        if vc.channel != before.channel:
+            return
+        texto = 'Chao ' + (member.nick if member.nick is not None else member.name)
+    elif before and after:
+        if vc.channel != before.channel and vc.channel != after.channel:
+            return
+        if vc.channel == before.channel:
+            texto = 'Chao ' + (member.nick if member.nick is not None else member.name)
+        else:
+            texto = 'Hola ' + (member.nick if member.nick is not None else member.name)
+
+    while vc.is_playing():
+        await asyncio.sleep(0.1)
+
+    lang, tld = DB.get_idioma(member.id)
+    tts = gtts.gTTS(texto, lang=lang, tld=tld)
+    custom = "%d.mp3" % member.guild.id
+    tts.save(custom)
+
+    vc.play(
+        discord.FFmpegPCMAudio(source=custom, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
+        after=lambda _: os.remove(custom)
+    )
+
 
 if __name__ == "__main__":
     DB.iniciar()
