@@ -286,6 +286,8 @@ async def on_voice_state_update(member, before, after):
             return
         texto = 'Chao ' + (member.nick if member.nick is not None else member.name)
     elif before and after:
+        if before.channel == after.channel:
+            return
         if vc.channel != before.channel and vc.channel != after.channel:
             return
         if vc.channel == before.channel:
