@@ -9,8 +9,9 @@ CLIPS = {
         "nivel de gusano",
         "no comprender",
         "no me chupes",
-        "porque blissard",
         "pero mira",
+        "porque blissard",
+        "primer aviso",
         "que ha hecho",
         "que es eso",
         "rayita",
@@ -28,9 +29,11 @@ CLIPS = {
     ],
     "Luis Master": [
         "cockemon",
+        "de frente",
         "estas burlao",
         "me cago en",
         "pronunciar mi nombre",
+        "toma",
     ],
     "luckyGiorgi0": [
         "vaya ppc",
@@ -39,6 +42,7 @@ CLIPS = {
     "Iván Predictor": [
         "a",
         "avisado estas",
+        "el bicho",
         "esto es el wow",
         "me cago",
         "no lo hagas",
