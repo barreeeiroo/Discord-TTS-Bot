@@ -29,9 +29,13 @@ CLIPS = {
     ],
     "Luis Master": [
         "cockemon",
+        "criminal",
         "de frente",
+        "empanado",
         "estas burlao",
         "me cago en",
+        "imperdonable",
+        "ni dios",
         "pronunciar mi nombre",
         "toma",
     ],
