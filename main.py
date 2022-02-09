@@ -296,7 +296,6 @@ async def on_voice_state_update(member, before, after):
             texto = 'Hola ' + (member.nick if member.nick is not None else member.name)
     
     if texto.startswith('Chao') and len(vc.channel.members) == 0:
-        if not vc or not vc.is_connected():
             # If no voice channel, ignore
             return
         await vc.disconnect()
