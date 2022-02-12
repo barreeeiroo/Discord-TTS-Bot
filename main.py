@@ -294,12 +294,13 @@ async def on_voice_state_update(member, before, after):
             texto = 'Chao ' + (member.nick if member.nick is not None else member.name)
         else:
             texto = 'Hola ' + (member.nick if member.nick is not None else member.name)
-    
-    if texto.startswith('Chao') and len(vc.channel.members) == 0:
-        await vc.disconnect()
 
     while vc.is_playing():
         await asyncio.sleep(0.1)
+    
+    if texto.startswith('Chao') and len(vc.channel.members) == 0:
+        await vc.disconnect()
+        return
 
     lang, tld = DB.get_idioma(member.id)
     tts = gtts.gTTS(texto, lang=lang, tld=tld)
