@@ -73,6 +73,7 @@ CLIPS = {
         "my team is so bad",
         "porfaa",
         "riot",
+        "salta palante",
     ],
     "Nissaxter": [
         "autoataques",
