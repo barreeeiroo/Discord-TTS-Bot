@@ -7,6 +7,7 @@ CLIPS = {
         "es verdad",
         "gg wp",
         "granadeo",
+        "luis despierta",
         "nivel de gusano",
         "no comprender",
         "no me chupes",
