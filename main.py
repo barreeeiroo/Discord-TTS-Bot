@@ -303,7 +303,7 @@ async def on_voice_state_update(member, before, after):
         return
 
     lang, tld = DB.get_idioma(member.id)
-    tts = gtts.gTTS(texto, lang=lang, tld=tld)
+    tts = gtts.gTTS(texto[:150], lang=lang, tld=tld)
     custom = "%d.mp3" % member.guild.id
     tts.save(custom)
 
