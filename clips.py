@@ -27,10 +27,14 @@ CLIPS = {
         "ya no hay toplane",
     ],
     "Marto": [
+        "cona mala",
         "esta gorda",
         "esta grabando",
+        "no mana",
+        "perra mala",
         "segundo hit",
         "skyfall",
+        "ziggs musulman",
     ],
     "Luis Master": [
         "abuela momificada",
@@ -50,7 +54,9 @@ CLIPS = {
     ],
     "luckyGiorgi0": [
         "donde esta toplane",
+        "estabas a limite de rango",
         "vaya ppc",
+        "vete a tomar",
         "zz",
     ],
     "Iván Predictor": [
@@ -58,12 +64,26 @@ CLIPS = {
         "avisado estas",
         "el bicho",
         "esto es el wow",
+        "es verdad ivan",
         "me cago",
         "no lo hagas",
         "no que va",
     ],
     "Braischan": [
         "paguita extra",
+    ],
+    "Adri Ranger": [
+        "among as",
+        "donde esta el rango",
+        "falta dano",
+        "lo sabia",
+        "no se cuanto rango",
+        "pinchito",
+        "que esquivada",
+        "que nos vienen",
+    ],
+    "Dani Julio": [
+        "buenisimo julio",
     ],
     "Fytruzas": [
         "comeme",
@@ -86,7 +106,7 @@ CLIPS = {
     "Tyler Uno": [
         "im a problem",
         "nasus is stacking",
-        "no mana",
+        "you have no mana",
     ],
     "Efectos de Sonido": [
         "ayaya",
