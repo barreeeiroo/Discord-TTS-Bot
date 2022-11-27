@@ -38,6 +38,7 @@ CLIPS = {
     ],
     "Luis Master": [
         "abuela momificada",
+        "begone",
         "cockemon",
         "criminal",
         "de frente",
