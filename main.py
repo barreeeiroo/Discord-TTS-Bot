@@ -11,7 +11,9 @@ from clips import CLIPS
 from db import DB, Admin
 
 PREFIX = '$'
-bot = commands.Bot(command_prefix=PREFIX)
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 
 
 def cleanemojis(string):
