@@ -309,18 +309,17 @@ async def on_voice_state_update(member, before, after):
         await vc.disconnect()
         return
 
-    vc.play(
-        discord.FFmpegPCMAudio(source=win, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
-    )
-
     lang, tld = DB.get_idioma(member.id)
     tts = gtts.gTTS(texto[:150], lang=lang, tld=tld)
     custom = "%d.mp3" % member.guild.id
     tts.save(custom)
 
     vc.play(
-        discord.FFmpegPCMAudio(source=custom, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
-        after=lambda _: os.remove(custom)
+        discord.FFmpegPCMAudio(source=win, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
+        after=lambda _: vc.play(
+            discord.FFmpegPCMAudio(source=custom, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
+            after=lambda _: os.remove(custom)
+        ),
     )
 
 
