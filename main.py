@@ -269,6 +269,7 @@ async def unban(ctx, user=None, *args):
     Admin.unban_clip(clip, ctx.guild.id, user)
     await ctx.send("Clip desbaneado")
 
+
 @bot.event
 async def on_voice_state_update(member, before, after):
     vc = get(bot.voice_clients, guild=member.guild)
@@ -276,15 +277,17 @@ async def on_voice_state_update(member, before, after):
         # If no voice channel, ignore
         return
 
-    texto = ""
+    texto, win = "", ""
     if not before and after:
         if vc.channel != after.channel:
             return
         texto = 'Hola ' + (member.nick if member.nick is not None else member.name)
+        win = "clips/win_in.mp3"
     elif before and not after:
         if vc.channel != before.channel:
             return
         texto = 'Chao ' + (member.nick if member.nick is not None else member.name)
+        win = "clips/win_out.mp3"
     elif before and after:
         if before.channel == after.channel:
             return
@@ -292,15 +295,21 @@ async def on_voice_state_update(member, before, after):
             return
         if vc.channel == before.channel:
             texto = 'Chao ' + (member.nick if member.nick is not None else member.name)
+            win = "clips/win_out.mp3"
         else:
             texto = 'Hola ' + (member.nick if member.nick is not None else member.name)
+            win = "clips/win_in.mp3"
 
     while vc.is_playing():
         await asyncio.sleep(0.1)
-    
+
     if texto.startswith('Chao') and len(vc.channel.members) == 0:
         await vc.disconnect()
         return
+
+    vc.play(
+        discord.FFmpegPCMAudio(source=win, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
+    )
 
     lang, tld = DB.get_idioma(member.id)
     tts = gtts.gTTS(texto[:150], lang=lang, tld=tld)
