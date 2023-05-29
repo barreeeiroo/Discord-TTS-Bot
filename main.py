@@ -315,12 +315,9 @@ async def on_voice_state_update(member, before, after):
     tts.save(custom)
 
     vc.play(
-        discord.FFmpegPCMAudio(source=win, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
-        after=lambda _: vc.play(
-            discord.FFmpegPCMAudio(source=custom, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
-            after=lambda _: os.remove(custom)
-        ),
-    )
+        discord.FFmpegPCMAudio(source=custom, executable=os.environ['DISCORD_FFMPEG'], options="-loglevel panic"),
+        after=lambda _: os.remove(custom)
+    ),
 
 
 if __name__ == "__main__":
